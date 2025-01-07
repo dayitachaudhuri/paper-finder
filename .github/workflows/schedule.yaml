@@ -1,0 +1,29 @@
+name: Fetch ArXiv Papers Daily
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Runs daily at 6:00 AM UTC
+
+jobs:
+  fetch-arxiv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: pip install requests
+
+      - name: Run Script
+        run: python fetch_arxiv_papers.py
+
+      - name: Upload CSV as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: arxiv_papers
+          path: arxiv_computation_language_papers.csv
