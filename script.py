@@ -36,7 +36,6 @@ def fetch_arxiv_papers(subject="cs.CL", last_n_hours=24):
     for entry in root.findall('arxiv:entry', ns):
         paper = {
             'title': entry.find('arxiv:title', ns).text.strip(),
-            'summary': entry.find('arxiv:summary', ns).text.strip(),
             'authors': ', '.join(author.find('arxiv:name', ns).text for author in entry.findall('arxiv:author', ns)),
             'published': entry.find('arxiv:published', ns).text.strip(),
             'link': entry.find('arxiv:id', ns).text.strip()
@@ -61,7 +60,7 @@ def write_to_csv(papers, filename="arxiv_papers.csv"):
         return
 
     with open(filename, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.DictWriter(file, fieldnames=['title', 'summary', 'authors', 'published', 'link'])
+        writer = csv.DictWriter(file, fieldnames=['title', 'authors', 'published', 'link'])
         writer.writeheader()
         writer.writerows(papers)
 

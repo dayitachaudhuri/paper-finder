@@ -20,7 +20,7 @@ jobs:
         run: pip install requests
 
       - name: Run Script
-        run: python fetch_arxiv_papers.py
+        run: script.py
 
       - name: Upload CSV as Artifact
         uses: actions/upload-artifact@v3
